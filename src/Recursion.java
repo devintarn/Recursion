@@ -1,22 +1,39 @@
-import java.sql.SQLOutput;
-import java.util.Arrays;
 import java.io.*;
-import java.util.Scanner;
+
 public class Recursion {
-    int rows;
-    int columns;
-    char[][] filled;
+    static int rows;
+    static int columns;
+    static char[][] filled;
     boolean[][] visited;
 
 
-    private void userInputBlobs(Scanner scan, String fileName){
-        try{
+    private static void blobsMain(String fileName){
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            System.out.println("Enter the Number of Rectangles in the File:");
-        }
-        catch(IOException e){
+            readBlobFile(fileName, reader);
+            for(var x : filled) {
+                for (var y :  x) {
+                    System.out.print(y + " ");
+                } System.out.println();
+            }
+        } catch(IOException e){
             e.printStackTrace();
         }
+    }
+    private static char[][] fillArray(BufferedReader reader, String fileName, int rows, int columns)throws IOException{
+        char[][] array = new char[rows][columns];
+        String line;
+        line = reader.readLine();
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++){
+                array[i][j] = line.charAt(j);
+            }
+        } return array;
+    }
+    private static void readBlobFile(String fileName, BufferedReader reader)throws IOException{
+        int columns = Integer.parseInt(reader.readLine());
+        int rows = Integer.parseInt(reader.readLine());
+        filled = fillArray(reader,fileName,rows,columns);
     }
 
     /**
@@ -113,10 +130,6 @@ public class Recursion {
         }
     }
 
-// public static char[][] characterArray(BufferedReader reader, String fileName){
-//
-// }
-//
     /** Method Name: printLoop
      * @Author Devin Tran
      * @Date 10/20/2023
@@ -190,7 +203,9 @@ public class Recursion {
      * @Returns If the string can be a palindrome
      * Dependencies: N/A
      * Throws/Exceptions: N/A
+     *
      **/
+
     public static boolean possiblePals(char[] array, int index, int numOfOdd, int occurrence) {
         if(index >= array.length) {
             return numOfOdd <= 1;
@@ -208,19 +223,21 @@ public class Recursion {
 
 
     public static void main(String[] args) {
-        String test = "m"; //Given string - test if can be a possible pal
-//System.out.println(test.length());// string.length() gives number of chars
+        blobsMain("data41.txt");
+//        String test = "m"; //Given string - test if can be a possible pal
+////System.out.println(test.length());// string.length() gives number of chars
+//
+//        char[] arrayOfChar = new char[test.length()]; // creating an array of chars based off of the string length
+//        arrayOfChar = test.toCharArray();
+//        Arrays.sort(arrayOfChar);
+//
+////testing to find array length
+//        int arraylen = arrayOfChar.length;// array.length // gives number of index - starts at 0 ends at 2 but still length of 3
+////System.out.println(arraylen);
+//        System.out.println(possiblePals(arrayOfChar, 0, 0, 0));
+//
+//        System.out.println(factorOfTwo(15));
 
-        char[] arrayOfChar = new char[test.length()]; // creating an array of chars based off of the string length
-        arrayOfChar = test.toCharArray();
-        Arrays.sort(arrayOfChar);
-
-//testing to find array length
-        int arraylen = arrayOfChar.length;// array.length // gives number of index - starts at 0 ends at 2 but still length of 3
-//System.out.println(arraylen);
-        System.out.println(possiblePals(arrayOfChar, 0, 0, 0));
-
-        System.out.println(factorOfTwo(15));
     }
 
 }
