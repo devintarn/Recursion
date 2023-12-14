@@ -17,12 +17,12 @@ public class Recursion {
 
                     System.out.print(filled[i][j]);
 
-                    if(filled[i][j] == 'X' && !visited[i][j]){
-                        getBlobSize(i,j);
-                        counter++;
-                    }else{
+                    if(filled[i][j] == 'X'){
+                        if (getBlobSize(i,j) != 0) counter++;
+                    } else {
                         visited[i][j] = true;
                     }
+
 //                    if(filled[i][j] == '.'){
 //                        visited[i][j] = true;
 //                    }
@@ -55,11 +55,7 @@ public class Recursion {
 
     private static boolean[][] fillBooleanArray(int rows, int columns){
         boolean[][] array = new boolean[rows][columns];
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < columns; j++){
-                array[i][j] = false;
-            }
-        } return array;
+        return array;
     }
     private static char[][] fillArray(BufferedReader reader, int rows, int columns)throws IOException{
         char[][] array = new char[rows][columns];
